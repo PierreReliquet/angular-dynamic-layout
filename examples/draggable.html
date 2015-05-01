@@ -1,0 +1,19 @@
+<html ng-app="draggableDemo">
+  <head>
+    <title>Draggable demo</title>
+  </head>
+  <body>
+    <div pr-grid>
+      <div id="foo" style="position:absolute; width: 100px; height: 50px; left: 0; top: 0; background: red;" pr-draggable-element>
+      </div>
+      <div id="bar" style="position:absolute; width: 100px; height: 50px; left: 0; top: 100px; background: blue;" pr-draggable-element>
+      </div>
+    </div>
+
+    <script src="../node_modules/angular/angular.js"></script>
+    <script src="../src/angular-dynamic-layout.js"></script>
+    <script>
+      angular.module('draggableDemo', ['pierrereliquet.angular-dynamic-layout']);
+    </script>
+  </body>
+</html>
