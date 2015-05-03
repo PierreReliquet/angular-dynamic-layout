@@ -1,4 +1,4 @@
-<html>
+<html ng-app="draggableDemo">
   <head>
     <title>Draggable demo</title>
   </head>
@@ -12,12 +12,11 @@
       </div>
     </div>
 
+    <script src="../node_modules/angular/angular.js"></script>
     <script src="../src/dynamic-layout.js"></script>
+    <script src="../src/angular-dynamic-layout.js"></script>
     <script>
-      prDynamicLayout.dynamicLayout(document.querySelector('[pr-grid]'), true, true, true);
-      document.addEventListener('pr-dynamic-layout', function(e) {
-        console.log(e.foo);
-      });
+      angular.module('draggableDemo', ['pierrereliquet.angular-dynamic-layout']);
     </script>
   </body>
 </html>
