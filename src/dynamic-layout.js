@@ -100,6 +100,9 @@
       }
       self.$$items[item.id] = item;
 
+      // Standard CSS override
+      item.style.position = 'absolute';
+
       // /!\ Inside the startDrag function the this is not bound and is going
       // to refer the element 'item' to which the event listener is attached.
       item.addEventListener('mousedown', self.startDrag);
@@ -131,13 +134,34 @@
     };
 
     this.onDrag = function(e) {
-      // Let's compute the delta with last known mouse position to be able
-      // to relocate properly the element on the page
+      var left = parseInt(self.$$movingItem.style.left, 10);
+      var top = parseInt(self.$$movingItem.style.top, 10);
+
       Utils.setStyle(self.$$movingItem, {
-        left: parseInt(self.$$movingItem.style.left, 10) + e.movementX + 'px',
-        top: parseInt(self.$$movingItem.style.top, 10) + e.movementY + 'px'
+        left: (left ? left : 0) + e.movementX + 'px',
+        top: (top ? top : 0) + e.movementY + 'px'
       });
       return Utils.cancelEvent(e);
+    };
+
+    this.initializeConfiguration = function(config) {
+      // the provided configuration is expected to have the following format:
+      // {
+      //   itemId: { /* item configuration */ }
+      // }
+      // Where standard item configuration is left, top, width, height properties
+      // either in pixel or percentage
+
+      Object.keys(self.$$items).forEach(function(itemId, index) {
+        if (typeof config[itemId] !== 'undefined') {
+          Utils.setStyle(self.$$items[itemId], config[itemId]);
+        } else {
+          Utils.setStyle(self.$$items[itemId], {
+            left: index * 50 + 'px',
+            top: index * 50  + 'px'
+          });
+        }
+      });
     };
 
     // Proper initialisation
@@ -150,5 +174,6 @@
     Utils.toArray(container.querySelectorAll('[' + prDynamicLayout.draggableElmAttr + ']'))
     .forEach(self.initializeItem);
 
+    self.initializeConfiguration(configuration ? configuration : {});
   }
 })(window, document);

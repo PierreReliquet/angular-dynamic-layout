@@ -4,17 +4,17 @@
   </head>
   <body>
     <div pr-grid>
-      <div id="foo" style="position:absolute; width: 100px; height: 50px; left: 0; top: 0; background: red;" pr-draggable-element>
+      <div id="foo" style="background: red;" pr-draggable-element>
         <h2 pr-drag-handle>Hello</h2>
         <h3>world!</h3>
       </div>
-      <div id="bar" style="position:absolute; width: 100px; height: 50px; left: 0; top: 100px; background: blue;" pr-draggable-element>
+      <div id="bar" style="width: 100px; height: 50px; left: 0; top: 100px; background: blue;" pr-draggable-element>
       </div>
     </div>
 
     <script src="../src/dynamic-layout.js"></script>
     <script>
-      prDynamicLayout.dynamicLayout(document.querySelector('[pr-grid]'), true, true, true);
+      prDynamicLayout.dynamicLayout(document.querySelector('[pr-grid]'));
       document.addEventListener('pr-dynamic-layout', function(e) {
         console.log(e.foo);
       });
